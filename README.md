@@ -239,4 +239,58 @@ Note: This is the current approach since we cannot directly use the get_dummies 
             'Queen of Pain', 'Venomancer', 'Faceless Void', 'Wraith King',
             'Death Prophet', 'Phantom Assassin', 'Pugna', 'Templar Assassin', 'Viper',
             'Luna', 'Dragon Knight', 'Dazzle', 'Clockwerk', 'Leshrac', "Nature's Prophet",
-            'Lifestealer', 'Da
+            'Lifestealer', 'Dark Seer', 'Clinkz', 'Omniknight', 'Enchantress', 'Huskar',
+            'Night Stalker', 'Broodmother', 'Bounty Hunter', 'Weaver', 'Jakiro',
+            'Batrider', 'Chen', 'Spectre', 'Ancient Apparition', 'Doom', 'Ursa',
+            'Spirit Breaker', 'Gyrocopter', 'Alchemist', 'Invoker', 'Silencer',
+            'Outworld Devourer', 'Lycan', 'Brewmaster', 'Shadow Demon', 'Lone Druid',
+            'Chaos Knight', 'Meepo', 'Treant Protector', 'Ogre Magi', 'Undying', 'Rubick',
+            'Disruptor', 'Nyx Assassin', 'Naga Siren', 'Keeper of the Light', 'Io',
+            'Visage', 'Slark', 'Medusa', 'Troll Warlord', 'Centaur Warrunner', 'Magnus',
+            'Timbersaw', 'Bristleback', 'Tusk', 'Skywrath Mage', 'Abaddon', 'Elder Titan',
+            'Legion Commander', 'Techies', 'Ember Spirit', 'Earth Spirit', 'Underlord',
+            'Terrorblade', 'Phoenix', 'Oracle', 'Winter Wyvern', 'Arc Warden'
+        ]
+        ```
+    * count the number of occurences of a skills in the input skills
+    * the desired output would be:  
+        <img class="input_processor" src="./images/heroes_desired_output.png" alt="Input Processor" title="skills_desired_output" width=800>  
+        if the input is ["earthshaker","nature's prophet","spirit breaker","queen of pain","jakiro"],  
+        Output would be:  
+            - 1 radiant_earthshaker  
+            - 1 radiant_nature's prophet  
+            - 1 radiant_spirit breaker  
+            - 1 radiant_queen of pain  
+            - 1 radiant_jakiro  
+            - 0 for the rest of heroes columns  
+4. Once the service.py and input_processor.py is created, we can now build out bento:
+* Create bentofile.yaml and specify the needed libraries
+    ```
+    service: "service.py:svc" # Specify entrypoint and service name
+    labels: # Labels related to the project for reminder (the provided labels are just for example)
+    owner: Christian Balanquit
+    project: Dota2_ML_Project
+    include:
+    - "*.py" # A pattern for matching which files to include in the bento build
+    python:
+    packages: # Additional pip packages required by the service
+        - xgboost
+        - scikit-learn
+        - pandas
+    ```
+* Run the command `bentoml build`. Then save the tag of the built bento (e.g. dota2_predictor_model:drc4bwtat63ymt4i in the image below)  
+    <img class="bentoml" src="./images/bentoml_build.png" alt="BENTOML" title="bentoml_build">  
+
+5. Once our bento is built, we can now deploy it locally or in the cloud.
+* Local Deployment using Docker
+    - build the docker image using the command `bentoml containerize <bentoml_model_name>:<model_name>`.  
+    In this instance case `bentoml containerize dota2_predictor_model:drc4bwtat63ymt4i`
+    - Once the docker image is built, use the command `docker run -it --rm -p 3000:3000 containerize <bentoml_model_name>:<model_name>` to test if everything is working fine. 
+* Cloud Deployment using AWS Elastic Container Service (ECS)
+    - refer to this [link](https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/07-bentoml-production/06-production-deployment.md) for the detailed instructions on how to deploy the model in AWS
+
+Limitations and Further Features/Improvements:
+1. In this predictor, we just use the pre-game information a dota team or player can have like the (1) region, day_of_week, and time of the day, (2) the average winrate of the radiant and dire players, and the (3) skill levels and heroes of the radiant and dire players. This information will not really dictate the result of a game/match since Dota is a really complex game. What we can do is to also add a In-game Winner Predictor which will predict the probable winner based on the gold, hero experience, KDA, towers destroyed on a given time
+2. We can also try to gather more data with more representation for each heroes
+3. We can also go back to the model training and deployment
+4. We can try to deploy it in other cloud provider like Azure or GCP
