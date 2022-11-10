@@ -2,9 +2,7 @@
 
 Who do you think will win? Light or Dark? Good or Bad? **RADIANT OR DIRE**? <br>
 In this project, we used Machine Learning to predict the winner of a Dota 2 match using pre-game features: region, cluster, time, average winrates, players skills, and player heroes.
-
-<img class="introduction" src="./images/radiant_dire.png" alt="intro" title="radiantdire" width=1000>
-<br>
+<img class="introduction" src="./images/radiant_dire.png" alt="intro" title="radiantdire" width=1000><br>
 
 # How to use the Prediction Service?
 1. Open the link web service by going to this [link](http://13.228.23.49:3000/). Then BentoML's Swagger UI will appear.<br>
