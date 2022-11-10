@@ -287,7 +287,7 @@ Note: This is the current approach since we cannot directly use the get_dummies 
 * Cloud Deployment using AWS Elastic Container Service (ECS)
     - refer to this [link](https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/07-bentoml-production/06-production-deployment.md) for the detailed instructions on how to deploy the model in AWS <br>
 
-# Limitations and Further Features/Improvements:
+# Limitations and Future Enhancements
 1. In this predictor, we just use the pre-game information a dota team or player can have like the (1) region, day_of_week, and time of the day, (2) the average winrate of the radiant and dire players, and the (3) skill levels and heroes of the radiant and dire players. This information will not really dictate the result of a game/match since Dota is a really complex game. What we can do is to also add a In-game Winner Predictor which will predict the probable winner based on the gold, hero experience, KDA, towers destroyed on a given time
 2. We can also try to gather more data with more representation for each heroes
 3. We can also go back to the model training and deployment
