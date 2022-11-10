@@ -98,9 +98,9 @@ The dataset is found in [kaggle](https://www.kaggle.com/datasets/devinanzelmo/do
 **Author**: DEVIN ANZELMO<br>
 
 Specific Datasets Used:<br>
-* match_dataset
-* player_ratings_dataset
-* players_dataset
+* match
+* player_ratings
+* players
 * hero_name
 
 For the data preparation, we can look into the following data model on how we structure the resulting dataframe used for training from the datasources we have used.<br>
